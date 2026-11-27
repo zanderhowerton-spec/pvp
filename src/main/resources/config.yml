@@ -1,0 +1,58 @@
+# Attach the NPCLife trait to every newly created NPC so its spawn location becomes
+# the wander centre. The trait is inert until you run: /npcx behavior enable
+auto-attach: true
+# Brains only run while a real player is within this many blocks (performance).
+active-range: 128
+# Hard upper cap for any NPC's wander radius (blocks).
+max-wander-radius: 100
+# Let INTERACT toggle doors/levers/buttons (restored afterwards). Chest lids are cosmetic only.
+modify-world: true
+# Return-to-spawn rule (applies to ALL NPCs, including ones that existed before the plugin was installed):
+# an NPC more than return-distance blocks from its spawn point waits return-wait-seconds, then walks back;
+# if it hasn't made it within return-timeout-seconds it is teleported. Per NPC: /npcx wander home <blocks|off|default>
+return-distance: 40
+return-wait-seconds: 20
+return-timeout-seconds: 120
+
+# Unlimited food: every player NPC eats bread/steak/carrots/golden carrots when its simulated food level is low.
+auto-eat: true
+eat-below: 6               # food level (0-20) at which an NPC gets hungry
+hunger-rate: 1.0           # raise to make NPCs eat more often (e.g. 10 for testing)
+eat-speed-multiplier: 0.2  # 0.2 = 80% slower while eating (walking continues)
+eat-jump-chance: 0.6       # chance an NPC hops continuously while eating
+# Lid sounds come from vanilla through Paper. Set true to add explicit minecraft:block.*.open/close sounds as well.
+play-lid-sounds: false
+
+# Before walking, ask Citizens' pathfinder whether the destination is really reachable (prevents running into walls).
+# Turn off only if you notice lag from it.
+check-paths: true
+
+# ---- Army tools (/npcx army ...) ----
+army-max: 100               # most NPCs one /npcx army spawn may create
+army-spawn-per-tick: 4      # NPCs created per tick (lower = gentler on the server)
+army-default-mix: "20/50/30"  # beginner/average/expert skill split when mix= isn't given
+army-vulnerable: true       # army NPCs can take damage and die (dead ones stay dead until /npcx army respawn)
+army-drop-items: true       # dead army NPCs drop their whole kit (set false for no drops)
+army-leave-chance: 30       # % chance a killed army NPC leaves for good instead of waiting for /npcx army respawn
+
+# ---- PvP combat AI (/npcx combat ...) - every value can be tuned here ----
+combat:
+  army-default: true         # army NPCs fight automatically when a hostile team exists (/npcx team hostile a b)
+  view-distance: 40          # how far NPCs look for enemies
+  reach: 3.0                 # melee reach in blocks (spears get +1)
+  max-attackers: 3           # how many teammates may melee one target at the same time (others circle and wait their turn)
+  miss-scale: 1.0            # 0 = nobody ever misses, 2 = twice as many misses
+  shield-airborne-chance: 0.8   # chance to raise a shield when the opponent jumps / is launched (skill and style adjust it)
+  clutch-chance: 0.8         # chance to attempt a water-bucket clutch on a dangerous fall (skill adjusts it)
+  heal-safe-distance: 6.5    # NPCs back off to at least this far from an enemy before they eat/drink
+  bow-min-distance: 9        # use a bow only beyond this distance
+  pearl-min-distance: 14     # ender pearls to keep up with someone running away, beyond this distance
+  pearl-damage: 5            # damage taken when a pearl lands
+  move-mode: hybrid          # hybrid | velocity | navigator   (navigator = fallback if direct movement doesn't work on your build)
+  friendly-fire: false
+  attack-creative: false     # attack players in creative mode?
+  revenge: true              # fight back against anyone who hits them
+  cleanup-seconds: 60        # webs / bridge blocks NPCs placed disappear after this long
+
+# ---- marching ----
+march-teleport-stragglers: true   # an NPC stuck for ~5 s and far from its slot is teleported to it

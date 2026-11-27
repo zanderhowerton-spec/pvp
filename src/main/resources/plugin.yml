@@ -1,0 +1,14 @@
+name: NPCLife
+version: ${project.version}
+main: dev.npclife.NPCLifePlugin
+api-version: '1.21'
+depend: [Citizens]
+description: Autonomous, personality-driven player-like behaviour for Citizens NPCs
+commands:
+  npclife:
+    description: NPCLife control command
+    aliases: [npcx, nlife]
+    usage: /npcx help
+permissions:
+  npclife.use:
+    default: op
